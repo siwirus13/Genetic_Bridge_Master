@@ -1,7 +1,8 @@
 import time
 import copy
-from src/Game_Engine import GameState, simulate_game, load_deal
-from src/declarer import genetic_algorithm
+from src.Game_Engine import GameState, load_deal
+from src.simulation import simulate_game
+from src.declarer import genetic_algorithm
 
 
 def show_detailed_results(state, declarer, contract_level, best_strategy):
@@ -95,4 +96,6 @@ def main(deal_file):
 
 
 if __name__ == "__main__":
-    main('deals/4H.json')
+    main('utils/deals/4H.json')
+    main('utils/deals/2NT.json')
+    main('utils/deals/3NT.json')

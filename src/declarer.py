@@ -1,4 +1,5 @@
-from Game_Engine import get_legal_cards, get_current_trick_winner, simulate_game
+from src.Game_Engine import get_legal_cards, get_current_trick_winner
+from src.simulation import simulate_game
 import copy
 import random
 

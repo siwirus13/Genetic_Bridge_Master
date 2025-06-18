@@ -1,5 +1,4 @@
 import json
-import sys
 import os
 
 
@@ -23,46 +22,24 @@ def generate_opl_dat(data: dict) -> str:
     return "\n".join(output)
 
 
-def main():
-    if len(sys.argv) < 2:
-        print("Użycie: python json_to_opl_dat.py path/to/input.json [output.dat]")
-        sys.exit(1)
-
-    json_path = sys.argv[1]
-
+def main(json_path: str, output_path: str = None) -> str:
     if not os.path.exists(json_path):
-        print(f"Błąd: Plik '{json_path}' nie istnieje.")
-        sys.exit(1)
+        raise FileNotFoundError(f"File '{json_path}' does not exist.")
 
-    try:
-        with open(json_path, "r") as f:
-            data = json.load(f)
-    except json.JSONDecodeError as e:
-        print(f"Błąd: Nieprawidłowy format JSON: {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Błąd podczas odczytu pliku: {e}")
-        sys.exit(1)
+    with open(json_path, "r") as f:
+        data = json.load(f)
 
-    try:
-        opl_dat = generate_opl_dat(data)
-    except KeyError as e:
-        print(f"Błąd: Brakuje wymaganego klucza w JSON: {e}")
-        sys.exit(1)
+    opl_dat = generate_opl_dat(data)
 
-    output_path = sys.argv[2] if len(sys.argv) > 2 else "output.dat"
-
-    try:
+    if output_path:
         with open(output_path, "w") as f:
             f.write(opl_dat)
-        print(f"Plik .dat zapisany jako: {output_path}")
-    except Exception as e:
-        print(f"Błąd podczas zapisu pliku: {e}")
-        sys.exit(1)
+    return opl_dat
 
 
-if __name__ == "__main__":
-    main()
-
-# Usage example:
-# python json_to_opl_dat.py deal.json deal.dat
+# Example usage inside code:
+# dat_content = main("deal.json")
+# print(dat_content)
+# Or to save to file:
+# main("deal.json", "deal.dat")
+main('deals/4H.json', 'deals/4H.dat')
