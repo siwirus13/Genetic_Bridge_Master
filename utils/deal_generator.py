@@ -18,34 +18,39 @@ def count_points(hand):
 
 # Count trump cards in a hand
 def count_trumps(hand, trump):
+    if not trump or trump not in SUITS:
+        return 0
     return sum(1 for card in hand if card[0] == trump)
 
 # Main generator
-def generate_data(points, trump_colour, trump_amount, contract_level):
+def generate_data(ns_point_split, trump_colour, ns_trump_split, contract_level):
+    target_np, target_sp = ns_point_split
+    target_nt, target_st = ns_trump_split
+
     deck = full_deck()
-    random.shuffle(deck)
 
     while True:
         random.shuffle(deck)
-        # Try different splits of 13 cards for each player
+
         hands = {
-            'N': deck[0:13],
-            'S': deck[13:26],
+            'W': deck[0:13],
+            'N': deck[13:26],
             'E': deck[26:39],
-            'W': deck[39:52]
+            'S': deck[39:52]
         }
 
-        ns_points = count_points(hands['N']) + count_points(hands['S'])
-        ns_trumps = count_trumps(hands['N'], trump_colour) + count_trumps(hands['S'], trump_colour)
+        np = count_points(hands['N'])
+        sp = count_points(hands['S'])
+        nt = count_trumps(hands['N'], trump_colour)
+        st = count_trumps(hands['S'], trump_colour)
 
-        if ns_points == points and ns_trumps == trump_amount:
+        if (np == target_np and sp == target_sp and nt == target_nt and st == target_st):
             break  # Acceptable hand found
 
-    lead_player = random.choice(['N', 'S', 'E', 'W'])
+    lead_player = random.choice(['W'])
     lead_card = random.choice(hands[lead_player])
 
     data = {
-
         "declarer": "S",
         "trump": trump_colour,
         "contract_level": contract_level,
@@ -58,7 +63,13 @@ def generate_data(points, trump_colour, trump_amount, contract_level):
 
     return data
 
-data = generate_data(points=25, trump_colour='H', trump_amount=9, contract_level=4)
+# Example usage
+data = generate_data(
+    ns_point_split=(10, 9),
+    trump_colour='H',
+    ns_trump_split=(4, 3),
+    contract_level=4
+)
 
-with open('4H.json', 'w') as file:
+with open('deals/4H.json', 'w') as file:
     json.dump(data, file, indent=4)
