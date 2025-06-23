@@ -1,0 +1,11 @@
+Deal File,Contract,Declarer,Trump,Opening Lead,Declarer Tricks,Result,Over/Under Tricks,Best Fitness,Runtime (s)
+utils/deals\1D.json,1D,S,D,KD,9,MADE,2,178.09,37.30
+utils/deals\2C.json,2C,S,C,QH,9,MADE,1,174.31,40.65
+utils/deals\3C.json,3C,S,C,6D,7,DOWN,2,43.04,44.91
+utils/deals\4H.json,4H,S,H,TH,10,MADE,0,173.46,47.48
+utils/deals\4S.json,4S,S,S,KC,13,MADE,3,230.80,49.79
+utils/deals\5C.json,5C,S,C,3C,12,MADE,1,170.36,49.25
+utils/deals\5D.json,5D,S,D,TC,12,MADE,1,200.27,51.65
+utils/deals\6D.json,6D,S,D,2C,12,MADE,0,165.86,49.65
+utils/deals\6H.json,6H,S,H,TD,13,MADE,1,201.17,46.22
+utils/deals\7C.json,7C,S,C,8H,13,MADE,0,179.90,45.52

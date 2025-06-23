@@ -65,11 +65,11 @@ def generate_data(ns_point_split, trump_colour, ns_trump_split, contract_level):
 
 # Example usage
 data = generate_data(
-    ns_point_split=(8, 3),
-    trump_colour='NT',
-    ns_trump_split=(0, 0),
-    contract_level=2
+    ns_point_split=(18, 15),
+    trump_colour='C',
+    ns_trump_split=(5, 4),
+    contract_level=7
 )
 
-with open('deals/2NT.json', 'w') as file:
+with open('deals/7C.json', 'w') as file:
     json.dump(data, file, indent=4)

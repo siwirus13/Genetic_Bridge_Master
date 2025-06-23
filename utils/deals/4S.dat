@@ -1,0 +1,12 @@
+declarer = "S";
+trump = "S";
+contract_level = 4;
+lead_card = "CK";
+lead_player = "W";
+
+hand = [
+  {"DQ", "C8", "C2", "C9", "C7", "SK", "C6", "S4", "ST", "CA", "S8", "SA", "CQ"}, // N
+  {"H5", "H3", "H6", "HK", "CT", "HA", "S9", "HQ", "S5", "H4", "C4", "SJ", "DK"}, // S
+  {"D3", "S6", "H9", "DJ", "DA", "D9", "CJ", "D7", "S2", "S3", "H7", "C3", "D8"}, // E
+  {"D6", "D5", "D4", "H2", "C5", "H8", "DT", "S7", "D2", "HJ", "HT", "CK", "SQ"}, // W
+];

@@ -42,4 +42,10 @@ def main(json_path: str, output_path: str = None) -> str:
 # print(dat_content)
 # Or to save to file:
 # main("deal.json", "deal.dat")
-main('deals/4H.json', 'deals/4H.dat')
+for deal_file in os.listdir('deals'):
+    if deal_file.endswith('.json'):
+        json_path = os.path.join('deals', deal_file)
+        dat_path = os.path.join('deals', deal_file.replace('.json', '.dat'))
+        main(json_path, dat_path)
+
+

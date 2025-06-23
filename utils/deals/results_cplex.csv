@@ -1,0 +1,11 @@
+Deal File,Contract,Declarer,Trump,Opening Lead,Declarer Tricks,Result,Over/Under Tricks,Best Fitness,Runtime (s)
+utils/deals\1D.dat,1D,S,D,KD,6,DOWN,1,-,1.96
+utils/deals\2C.dat,2C,S,C,QH,8,MADE,0,-,2.08
+utils/deals\3C.dat,3C,S,C,6D,9,MADE,0,-,1.88
+utils/deals\4H.dat,4H,S,H,TH,8,DOWN,2,-,1.95
+utils/deals\4S.dat,4S,S,S,KC,5,DOWN,5,-,1.97
+utils/deals\5C.dat,5C,S,C,3C,6,DOWN,5,-,1.97
+utils/deals\5D.dat,5D,S,D,TC,9,DOWN,3,-,1.99
+utils/deals\6D.dat,6D,S,D,2C,13,MADE,1,-,1.81
+utils/deals\6H.dat,6H,S,H,TD,13,MADE,1,-,1.72
+utils/deals\7C.dat,7C,S,C,8H,13,MADE,0,-,1.82

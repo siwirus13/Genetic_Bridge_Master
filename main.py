@@ -5,6 +5,35 @@ from src.simulation import simulate_game
 from src.declarer import genetic_algorithm
 
 
+import csv
+import os
+
+def save_results_to_csv(filename, deal_file, declarer, contract_level, trump, opening_lead, declarer_tricks, result, tricks_diff, best_fitness, runtime):
+    file_exists = os.path.isfile(filename)
+    with open(filename, mode='a', newline='') as csvfile:
+        fieldnames = ['Deal File', 'Contract', 'Declarer', 'Trump', 'Opening Lead',
+                      'Declarer Tricks', 'Result', 'Over/Under Tricks',
+                      'Best Fitness', 'Runtime (s)']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        if not file_exists:
+            writer.writeheader()
+
+        writer.writerow({
+            'Deal File': deal_file,
+            'Contract': f"{contract_level}{trump}",
+            'Declarer': declarer,
+            'Trump': trump,
+            'Opening Lead': opening_lead,
+            'Declarer Tricks': declarer_tricks,
+            'Result': result,
+            'Over/Under Tricks': tricks_diff,
+            'Best Fitness': f"{best_fitness:.2f}",
+            'Runtime (s)': f"{runtime:.2f}"
+        })
+
+
+
 def show_detailed_results(state, declarer, contract_level, best_strategy):
     """Display detailed results matching OPL solver format"""
     partnerships = {"N": "S", "S": "N", "E": "W", "W": "E"}
@@ -94,8 +123,35 @@ def main(deal_file):
     # Show detailed results
     show_detailed_results(final_state, declarer, contract_level, best_strategy)
 
+    # Save results to CSV
+    needed_tricks = 6 + contract_level
+    if final_state.declarer_tricks >= needed_tricks:
+        result = "MADE"
+        tricks_diff = final_state.declarer_tricks - needed_tricks
+    else:
+        result = "DOWN"
+        tricks_diff = needed_tricks - final_state.declarer_tricks
+
+    save_results_to_csv(
+        filename='utils/deals/results.csv',
+        deal_file=deal_file,
+        declarer=declarer,
+        contract_level=contract_level,
+        trump=trump,
+        opening_lead=lead_card,
+        declarer_tricks=final_state.declarer_tricks,
+        result=result,
+        tricks_diff=tricks_diff,
+        best_fitness=best_strategy.fitness,
+        runtime=end_time - start_time
+    )
+
+
 
 if __name__ == "__main__":
-    main('utils/deals/4H.json')
-    main('utils/deals/2NT.json')
-    main('utils/deals/3NT.json')
+    for deal_file in os.listdir('utils/deals'):
+        if deal_file.endswith('.json'):
+            deal_path = os.path.join('utils/deals', deal_file)
+            print(f"Processing deal: {deal_file}")
+            main(deal_path)
+            print("=" * 60)
