@@ -86,7 +86,7 @@ def show_detailed_results(state, declarer, contract_level, best_strategy):
     print(f"Genome diversity: {len(set(round(g, 2) for g in best_strategy.genome[:20]))}/20 (first 20 genes)")
 
 
-def main(deal_file):
+def main(deal_file,p,g):
     """Main function to run the genetic algorithm bridge solver"""
     # Load deal
     hands, declarer, trump, contract_level, lead_card, lead_player = load_deal(deal_file)
@@ -108,8 +108,8 @@ def main(deal_file):
 
     # Run genetic algorithm
     start_time = time.time()
-    best_strategy = genetic_algorithm(hands, declarer, trump, contract_level,
-                                      lead_card, lead_player)
+    best_strategy = genetic_algorithm(hands, declarer, trump, contract_level, lead_card, lead_player,
+                      population_size=p, generations=g)
     end_time = time.time()
 
     print(f"\nOptimization completed in {end_time - start_time:.1f} seconds")
@@ -153,5 +153,5 @@ if __name__ == "__main__":
         if deal_file.endswith('.json'):
             deal_path = os.path.join('utils/deals', deal_file)
             print(f"Processing deal: {deal_file}")
-            main(deal_path)
+            main(deal_path,40,70)
             print("=" * 60)
